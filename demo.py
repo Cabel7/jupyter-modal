@@ -1,9 +1,8 @@
 import modal, os, sys, shlex
 
-stub = modal.Stub("jupyter")
-volume = modal.NetworkFileSystem.from("jupyter")
+app = modal.App("jupyter")
 
-@stub.function(
+@app.function(
     image=modal.Image.from_registry("nvidia/cuda:11.8.0-devel-ubuntu22.04", add_python="3.10")
     .run_commands(
         "apt update -y && \
@@ -51,6 +50,6 @@ async def run():
     print(tunnel_url)
     os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse --notebook-dir /content")
 
-@stub.local_entrypoint()
+@app.local_entrypoint()
 def main():
     run.remote()
