@@ -1,7 +1,7 @@
 import modal, os, sys, shlex
 
 stub = modal.Stub("jupyter")
-volume = modal.NetworkFileSystem.from_name("jupyter")
+volume = modal.NetworkFileSystem.from("jupyter")
 
 @stub.function(
     image=modal.Image.from_registry("nvidia/cuda:11.8.0-devel-ubuntu22.04", add_python="3.10")
