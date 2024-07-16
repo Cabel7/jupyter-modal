@@ -47,7 +47,7 @@ async def run():
     tunnel_url = output_queue.get()
     os.environ['webui_url'] = tunnel_url
     print(tunnel_url)
-    os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse --notebook-dir")
+    os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse")
 
 @app.local_entrypoint()
 def main():
