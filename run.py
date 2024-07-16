@@ -1,7 +1,6 @@
 import modal, os, sys, shlex
 
 app = modal.App("jupyter")
-vol = Volume.from_name("jupyter", create_if_missing=True)
 
 @app.function(
     image=modal.Image.from_registry("nvidia/cuda:11.8.0-devel-ubuntu22.04", add_python="3.10")
@@ -20,7 +19,6 @@ vol = Volume.from_name("jupyter", create_if_missing=True)
         pip install -q torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2+cu118 torchtext==0.15.2 torchdata==0.6.1 --extra-index-url https://download.pytorch.org/whl/cu118 && \
         pip install -q xformers==0.0.20 triton==2.0.0 packaging==23.1 notebook"
     ),
-    volumes={"/content": vol},
     gpu="T4",
     timeout=60000,
 )
@@ -49,7 +47,7 @@ async def run():
     tunnel_url = output_queue.get()
     os.environ['webui_url'] = tunnel_url
     print(tunnel_url)
-    os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse --notebook-dir /content")
+    os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse --notebook-dir")
 
 @app.local_entrypoint()
 def main():
