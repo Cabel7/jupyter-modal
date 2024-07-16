@@ -1,4 +1,4 @@
-import modal, os, sys, shlex, App, Volume 
+import modal, os, sys, shlex
 
 app = modal.App("jupyter")
 volume = modal.Volume.from_name("jupyter", create_if_missing=True)
