@@ -1,7 +1,7 @@
 import modal, os, sys, shlex
 
 app = modal.App("jupyter")
-volume = modal.Volume.from_name("jupyter", create_if_missing=True)
+volume = Volume.from_name("jupyter", create_if_missing=True)
 
 @app.function(
     image=modal.Image.from_registry("nvidia/cuda:11.8.0-devel-ubuntu22.04", add_python="3.10")
